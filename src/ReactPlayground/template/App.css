@@ -4,11 +4,8 @@
     -moz-osx-font-smoothing: grayscale;
     font-weight: 400;
     line-height: 1.5;
-    color: rgb(255 255 255 / 87%);
     text-rendering: optimizelegibility;
     text-size-adjust: 100%;
-    background-color: #242424;
-    color-scheme: light dark;
     font-synthesis: none;
 }
 
@@ -38,7 +35,7 @@ button {
     font-size: 1em;
     font-weight: 500;
     cursor: pointer;
-    background-color: #1a1a1a;
+    background-color: #f1f1f1;
     border: 1px solid transparent;
     border-radius: 8px;
     transition: border-color 0.25s;

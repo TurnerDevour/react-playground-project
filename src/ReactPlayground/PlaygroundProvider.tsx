@@ -1,4 +1,4 @@
-import {type Files, PlaygroundContext} from "./PlaygroundContext";
+import {type Files, PlaygroundContext, type Theme} from "./PlaygroundContext";
 import {type PropsWithChildren, useState} from "react";
 import {fileName2Language} from "./utils.ts";
 import {initFiles} from "./files.ts";
@@ -7,6 +7,7 @@ export const PlaygroundProvider = (props: PropsWithChildren) => {
     const {children} = props
     const [files, setFiles] = useState<Files>(initFiles)
     const [selectedFileName, setSelectedFileName] = useState('App.tsx');
+    const [theme, setTheme] = useState<Theme>('dark');
 
     const addFile = (name: string) => {
         files[name] = {
@@ -48,6 +49,8 @@ export const PlaygroundProvider = (props: PropsWithChildren) => {
                 addFile,
                 removeFile,
                 updateFileName,
+                theme,
+                setTheme,
             }}
         >
             {children}

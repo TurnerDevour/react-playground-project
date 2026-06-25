@@ -74,8 +74,10 @@ function customResolver(files: Files): PluginObj {
                 const modulePath = path.node.source.value
                 if(modulePath.startsWith('.')) {
                     const file = getModuleFile(files, modulePath)
-                    if(!file)
+                    if(!file) {
+                        path.remove()
                         return
+                    }
 
                     if (file.name.endsWith('.css')) {
                         path.node.source.value = css2Js(file)
