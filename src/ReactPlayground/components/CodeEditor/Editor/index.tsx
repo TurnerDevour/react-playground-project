@@ -26,8 +26,6 @@ export default function Editor(props: Props) {
 
         editor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.KeyJ, () => {
             editor.getAction('editor.action.formatDocument')?.run()
-            // let actions = editor.getSupportedActions().map((a) => a.id);
-            // console.log(actions);
         });
 
         monaco.typescript.typescriptDefaults.setCompilerOptions({
