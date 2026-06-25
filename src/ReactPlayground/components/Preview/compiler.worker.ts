@@ -54,15 +54,15 @@ const json2Js = (file: File) => {
 const css2Js = (file: File) => {
     const randomId = new Date().getTime()
     const js = `
-(() => {
-    const stylesheet = document.createElement('style')
-    stylesheet.setAttribute('id', 'style_${randomId}_${file.name}')
-    document.head.appendChild(stylesheet)
-
-    const styles = document.createTextNode(\`${file.value}\`)
-    stylesheet.innerHTML = ''
-    stylesheet.appendChild(styles)
-})()
+        (() => {
+            const stylesheet = document.createElement('style')
+            stylesheet.setAttribute('id', 'style_${randomId}_${file.name}')
+            document.head.appendChild(stylesheet)
+        
+            const styles = document.createTextNode(\`${file.value}\`)
+            stylesheet.innerHTML = ''
+            stylesheet.appendChild(styles)
+        })()
     `
     return URL.createObjectURL(new Blob([js], { type: 'application/javascript' }))
 }
@@ -100,3 +100,15 @@ export const compile = (files: Files) => {
     const main = files[ENTRY_FILE_NAME]
     return babelTransform(ENTRY_FILE_NAME, main.value, files)
 }
+
+self.addEventListener('message', async ({ data }) => {
+    try {
+        self.postMessage({
+            type: 'COMPILED_CODE',
+            data: compile(data)
+        })
+    } catch (e) {
+        self.postMessage({ type: 'ERROR', error: e })
+    }
+})
+
