@@ -11,6 +11,7 @@ export interface EditorFile {
 interface Props {
     file: EditorFile
     onChange?: EditorProps['onChange'],
+    theme?: EditorProps['theme'],
     options?: editor.IStandaloneEditorConstructionOptions
 }
 
@@ -19,10 +20,15 @@ export default function Editor(props: Props) {
     const {
         file,
         onChange,
+        theme,
         options
     } = props;
 
     const handleEditorMount: OnMount = async (editor, monaco) => {
+
+        if (theme) {
+            monaco.editor.setTheme(theme)
+        }
 
         editor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.KeyJ, () => {
             editor.getAction('editor.action.formatDocument')?.run()
@@ -48,6 +54,7 @@ export default function Editor(props: Props) {
         height={'100%'}
         path={file.name}
         language={file.language}
+        theme={theme}
         onMount={handleEditorMount}
         onChange={onChange}
         value={file.value}
